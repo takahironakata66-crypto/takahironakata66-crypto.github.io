@@ -2,6 +2,416 @@
 <html lang="ja">
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FLOW RISE - 太古からの知恵で時代を創る！ハイブリッドな感性で豊かさを提供</title>
+    <meta name="description" content="太古からの知恵と最先端の感性で新しい時代を創るFLOW RISE。ハイブリッドな感性で豊かさを提供します。" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.css" rel="stylesheet" />
+
+    <style>
+         :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, #7dd3fc 0%, #0052cc 100%);
+        }
+        
+        .gradient-secondary {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #059669 100%);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .section-padding {
+            padding: 4rem 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 6rem 2rem;
+            }
+        }
+        /* PDF Optimization */
+        
+        @media print {
+            body {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            .no-print {
+                display: none;
+            }
+            .section-padding {
+                padding: 2rem 1rem !important;
+            }
+            .page-break {
+                page-break-inside: avoid;
+            }
+        }
+        /* Custom scrollbar for better PDF export */
+        
+         ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        .image-row {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .image-row>div {
+            flex: 1;
+            max-width: 300px;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        }
+        
+        .image-row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- h-16 → h-24 で高さUP -->
+                <div class="flex items-center">
+                    <!-- サイト名部分をロゴ画像で大きく表示 -->
+                    <img src="flowrise_logo.png" alt="FLOW RISE ロゴ" class="h-16 w-auto mr-3" />
+                    <!-- 旧テキストロゴは削除 -->
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="text-gray-700 hover:text-blue-600 transition duration-300">私たちについて</a>
+                        <a href="#services" class="text-gray-700 hover:text-blue-600 transition duration-300">サービス</a>
+                        <a href="#products" class="text-gray-700 hover:text-blue-600 transition duration-300">製品</a>
+                        <a href="#contact" class="text-gray-700 hover:text-blue-600 transition duration-300">お問い合わせ</a>
+                    </div>
+                </div>
+                <div class="md:hidden no-print">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden glass-effect no-print">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-blue-600">私たちについて</a>
+                <a href="#services" class="block px-3 py-2 text-gray-700 hover:text-blue-600">サービス</a>
+                <a href="#products" class="block px-3 py-2 text-gray-700 hover:text-blue-600">製品</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-blue-600">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative bg-gradient-to-r from-sky-400 to-blue-700 h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景動画（暗さ軽減のためbrightness(100%)以上） -->
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(1.2);">
+            <source src="your-background-video.mp4" type="video/mp4" />
+            このブラウザは動画タグに対応していません。
+        </video>
+
+        <!-- 黒半透明オーバーレイを薄く -->
+        <div class="absolute inset-0 bg-black bg-opacity-20 z-5"></div>
+
+        <!-- テキストコンテンツ -->
+        <div class="relative z-10 text-white text-center px-6 max-w-7xl">
+            <h1 class="font-bold mb-6 leading-tight text-4xl md:text-6xl" style="line-height: 1.2;">
+                太古からの知恵で時代を創る！<br />
+                <span class="text-yellow-300">FLOW RISE</span><br /> ハイブリッドな感性で
+                <br /> 豊かさを提供
+            </h1>
+            <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+                テクノロジーと人の力で、社会に新しい価値を届けるイノベーション企業
+            </p>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding bg-gray-50 page-break">
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">会社理念</h3>
+                    <div class="bg-white p-8 rounded-2xl border-l-4 border-blue-500 shadow-lg max-w-lg">
+                        <p class="text-2xl font-semibold text-blue-600 mb-4">"Circular Economy"</p>
+                        <p class="text-lg text-gray-700 leading-relaxed">
+                            日本の着物文化を再考する事業　「KIMONO」を「日本の生活」へリユースし<br>サーキュラーエコノミー（循環経済）を実現していきます　 「あなたのご家庭のタンスに眠っている着物に、あらたな命を吹き込みませんか？」
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="max-w-lg bg-white p-8 rounded-2xl shadow-lg hover-scale text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-cogs text-3xl text-blue-600"></i>
+                        </div>
+                        <h4 class="text-3xl font-bold text-gray-800 mb-6">経営理念</h4>
+                        <p class="text-gray-700 leading-relaxed text-lg mb-2">
+                            日本のモノづくり力で、エネルギーを産み出す事業
+                        </p>
+                        <p class="text-gray-700 leading-relaxed text-lg mb-2">
+                            日本の技術力で、省エネ・節電・再エネを実現していきます
+                        </p>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            「今の生活をひと工夫し、省エネを実現していきませんか？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="flex justify-center">
+                    <img src="kimono_circular_economy.jpg" alt="着物のサーキュラーエコノミー" class="rounded-2xl max-w-full h-auto shadow-lg" />
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md" style="max-height: 650px; overflow-y: auto;">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding bg-white page-break">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="flex justify-center gap-8 mb-8">
+                <img src="service_kimono1.jpg" alt="サービスイメージ（和装の女性1）" class="w-full max-w-xs rounded-lg object-cover" />
+                <img src="service_kimono2.jpg" alt="サービスイメージ（和装の女性2）" class="w-full max-w-xs rounded-lg object-cover" />
+            </div>
+            <div class="mt-6 max-w-md mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">サービス</h2>
+                <div class="max-w-xs mx-auto text-center text-2xl font-extrabold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg whitespace-normal">
+                    <p>着物をただ補完するのではなく、新しい形に再生しました。</p>
+                    <p class="mt-6">
+                        伝統的な生地や柄を活かしながら、バッグや小物、インテリアなど、
+                    </p>
+                    <p class="mt-6">現代の生活に合うアイテムを制作しています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="section-padding bg-gray-50 page-break">
+        <div class="max-w-7xl mx-auto">
+            <!-- 真ん中カラム上にタイトルテキスト -->
+            <div class="flex justify-center">
+                <h3 class="text-3xl font-bold text-gray-800 mb-6">着物新生</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale flex justify-center">
+                    <img src="remake_kimono_bag.jpg" alt="リメイク着物バッグ" class="w-full h-auto object-cover rounded-2xl" />
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale flex justify-center">
+                    <img src="remake_kimono_accessory.jpg" alt="リメイク着物アクセサリー" class="w-full h-auto object-cover rounded-2xl" />
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale flex justify-center">
+                    <img src="remake_kimono_interior.jpg" alt="リメイク着物インテリア" class="w-full h-auto object-cover rounded-2xl" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding gradient-primary text-white page-break">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">お問い合わせ</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    お気軽にご相談ください。専門スタッフが丁寧にサポートいたします。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- 連絡先表示 -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8">お問い合わせ方法</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">フローライズ合同会社</h4>
+                                <p class="opacity-90">
+                                    〒633-0021<br /> 奈良県桜井倉橋２９２
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-2">連絡先</h4>
+                                <p class="opacity-90">
+                                    <a href="mailto:flowrise2025@gmail.com" class="underline">flowrise2025@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- メールフォーム -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8">メールフォーム</h3>
+                    <form action="send_mail.php" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-white font-semibold mb-2">お名前</label>
+                            <input type="text" id="name" name="name" required class="w-full rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="お名前を入力してください" />
+                        </div>
+                        <div>
+                            <label for="email" class="block text-white font-semibold mb-2">メールアドレス</label>
+                            <input type="email" id="email" name="email" required class="w-full rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="メールアドレスを入力してください" />
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-white font-semibold mb-2">件名</label>
+                            <input type="text" id="subject" name="subject" required class="w-full rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="件名を入力してください" />
+                        </div>
+                        <div>
+                            <label for="message" class="block text-white font-semibold mb-2">お問い合わせ内容</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400" placeholder="お問い合わせ内容を入力してください"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-yellow-400 text-white font-bold py-3 rounded-md hover:bg-yellow-500 transition duration-300">
+              送信する
+            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 FLOW RISE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'ja',
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                },
+                height: 'auto', // 高さ自動調整に変更
+                dayMaxEventRows: 3, // 1日に表示されるイベントの最大行数を制限
+                events: [{
+                    title: 'イベント1',
+                    start: '2023-04-30'
+                }, {
+                    title: 'イベント2',
+                    start: '2023-05-05'
+                }, {
+                    title: '12:30p イベント',
+                    start: '2023-04-09T12:30:00'
+                }]
+            });
+            calendar.render();
+        });
+    </script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html><!DOCTYPE html>
+<html lang="ja">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLOW RISE - 太古からの知恵で時代を創る！ハイブリッドな感性で豊かさを提供</title>

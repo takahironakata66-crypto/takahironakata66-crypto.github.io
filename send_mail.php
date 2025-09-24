@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         empty($subject) ||
         empty($message)
     ) {
-        echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>エラー</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>入力内容に誤りがあります。</h2><p>すべての項目を正しく入力してください。</p></body></html>";
+        echo "入力内容に誤りがあります。すべての項目を正しく入力してください。";
         exit;
     }
 
@@ -27,32 +27,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $to = "flowrise2025@gmail.com";
 
-    // 件名はISO-2022-JPに変換しMIMEエンコード
-    $email_subject = mb_encode_mimeheader("お問い合わせ: " . $subject, "ISO-2022-JP");
+    // 件名にMIMEエンコード（ISO-2022-JPは省略してUTF-8にする場合）
+    $email_subject = "お問い合わせ: " . $subject;
 
     $email_body = "お名前: {$name}\n";
     $email_body .= "メールアドレス: {$email}\n\n";
     $email_body .= "お問い合わせ内容:\n{$message}\n";
 
-    // ヘッダーのFromもMIMEエンコード、Content-TypeはISO-2022-JP
-    $encoded_name = mb_encode_mimeheader($name, "ISO-2022-JP");
-    $headers = "From: {$encoded_name} <{$email}>\r\n";
+    // ヘッダーはUTF-8に対応した形式で
+    $headers = "From: {$name} <{$email}>\r\n";
     $headers .= "Reply-To: {$email}\r\n";
-    $headers .= "Content-Type: text/plain; charset=ISO-2022-JP\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    // UTF-8からISO-2022-JPへ本文変換
-    $email_body_iso = mb_convert_encoding($email_body, "ISO-2022-JP", "UTF-8");
-
-    // メール送信
-    $result = mb_send_mail($to, $email_subject, $email_body_iso, $headers);
+    // mb_send_mail 使用して送信テスト（動かない場合はmail関数に戻す）
+    if (!function_exists('mb_send_mail') || !mb_send_mail($to, $email_subject, $email_body, $headers)) {
+        // mb_send_mailがなかったり失敗したらmailで送信
+        $result = mail($to, $email_subject, $email_body, $headers);
+    } else {
+        $result = true;
+    }
 
     if ($result) {
-        echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>送信完了</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>お問い合わせありがとうございます。</h2><p>送信が完了しました。担当者よりご連絡いたします。</p><a href='index.html'>トップページへ戻る</a></body></html>";
+        echo "お問い合わせありがとうございます。送信が完了しました。";
     } else {
-        echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>送信エラー</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>送信中に問題が発生しました。</h2><p>時間をおいて再度お試しください。</p><a href='index.html'>トップページへ戻る</a></body></html>";
+        echo "送信中に問題が発生しました。時間をおいて再度お試しください。";
     }
 } else {
-    // POST以外は無効
-    echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>無効なリクエスト</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>無効なリクエストです。</h2><p>フォームからご送信ください。</p><a href='index.html'>トップページへ戻る</a></body></html>";
+    echo "無効なリクエストです。フォームからご送信ください。";
 }
-?>

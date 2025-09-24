@@ -1,5 +1,4 @@
 <?php
-// 日本語メール対応
 mb_language("Japanese");
 mb_internal_encoding("UTF-8");
 
@@ -17,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         empty($subject) ||
         empty($message)
     ) {
-        // HTMLとして返す（日本語もOK）
         echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>エラー</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>入力内容に誤りがあります。</h2><p>すべての項目を正しく入力してください。</p></body></html>";
         exit;
     }
@@ -28,18 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $subject = str_replace(array("\r", "\n"), '', $subject);
 
     $to = "flowrise2025@gmail.com";
-    $email_subject = "お問い合わせ: " . $subject;
+
+    // 件名はISO-2022-JPに変換しMIMEエンコード
+    $email_subject = mb_encode_mimeheader("お問い合わせ: " . $subject, "ISO-2022-JP");
 
     $email_body = "お名前: {$name}\n";
     $email_body .= "メールアドレス: {$email}\n\n";
     $email_body .= "お問い合わせ内容:\n{$message}\n";
 
-    $headers = "From: {$name} <{$email}>\r\n";
+    // ヘッダーのFromもMIMEエンコード、Content-TypeはISO-2022-JP
+    $encoded_name = mb_encode_mimeheader($name, "ISO-2022-JP");
+    $headers = "From: {$encoded_name} <{$email}>\r\n";
     $headers .= "Reply-To: {$email}\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= "Content-Type: text/plain; charset=ISO-2022-JP\r\n";
+
+    // UTF-8からISO-2022-JPへ本文変換
+    $email_body_iso = mb_convert_encoding($email_body, "ISO-2022-JP", "UTF-8");
 
     // メール送信
-    $result = mb_send_mail($to, $email_subject, $email_body, $headers);
+    $result = mb_send_mail($to, $email_subject, $email_body_iso, $headers);
 
     if ($result) {
         echo "<!DOCTYPE html><html lang='ja'><head><meta charset='UTF-8'><title>送信完了</title></head><body style='font-family: sans-serif; background:#f9fafb; color:#333; padding:2em;'><h2>お問い合わせありがとうございます。</h2><p>送信が完了しました。担当者よりご連絡いたします。</p><a href='index.html'>トップページへ戻る</a></body></html>";

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FLOW RISE – 服と地球と人をつなぐサスティナブルブランド</title>
+    <style>
+        body {
+            font-family: "Yu Gothic", sans-serif;
+            margin: 0;
+            background: #FAFBFC;
+            color: #222;
+        }
+        
+        header {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logos {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logos img {
+            height: 40px;
+            margin-right: 16px;
+        }
+        
+        nav a {
+            color: #1C1883;
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .hero {
+            background: url('flowrise-hero.png') center/cover no-repeat;
+            color: #fff;
+            padding: 4rem 0 3rem 0;
+            text-align: center;
+        }
+        
+        .hero img {
+            width: 120px;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            border-radius: 60px;
+            padding: 10px;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin: 1rem 0 2.5rem;
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .block {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+        }
+        
+        .block.flex {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .block.flex>div {
+            flex: 1 1 0;
+        }
+        
+        h2 {
+            color: #1C1883;
+            margin-top: 0;
+        }
+        
+        ul {
+            padding-left: 1.2em;
+        }
+        
+        form label {
+            display: block;
+            margin: 1rem 0 0.4rem;
+            font-weight: bold;
+        }
+        
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        form button {
+            margin-top: 1.4rem;
+            background: #1C1883;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        footer {
+            background: #EDF0F5;
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 700px) {
+            .block.flex {
+                flex-direction: column;
+            }
+            .logos img {
+                height: 32px;
+            }
+            .hero img {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logos">
+            <img src="flowrise-logo.jpg" alt="FLOW RISE ロゴ" style="height:160px;">
+        </div>
+        <nav>
+            <a href="#services">サービス</a>
+            <a href="#philosophy">会社理念</a>
+            <a href="#contact">問い合わせ</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <img src="flowrise-main-visual.png" alt="メインビジュアル">
+        <h1>太古からの知恵で時代を創る！<br>FLOW RISES</h1>
+        <p>ハイブリッドな感性で豊かさを提供</p>
+    </div>
+
+    <main class="container">
+        <section class="block flex" id="services" style="gap:2rem;">
+            <div style="flex: 2;">
+                <h2>FLOW RISEのサービス</h2>
+                <p>着物をただ補完するのではなく、新しい形に再生しました。</p>
+                <p>伝統的な生地や柄を活かしながら、バッグや小物、インテリアなど、</p>
+                <p>現代の生活に合うアイテムを制作しています。</p>
+            </div>
+            <div style="flex: 1;">
+                <img src="flowrise-bg-gradient.png" alt="サービスイメージ" style="width:100%; border-radius:12px; box-shadow: 0 3px 9px rgba(0,0,0,0.15);">
+            </div>
+        </section>
+
+        <section class="block flex" id="philosophy">
+            <div>
+                <h2>FLOW RISEの会社理念</h2>
+                <p>
+                    天平文化で栄えた古都奈良よりグローバルワイドに<br> 日本の未来を提言する
+                </p>
+            </div>
+            <div>
+                <p>
+                    日本の着物文化を再考する事業<br>「KIMONO」を「日本の生活」へリユースし<br>サーキュラーエコノミー（循環経済）を実現していきます<br>「あなたのご家庭のタンスに眠っている着物に、<br>あらたな命を吹き込みませんか？」
+                </p>
+                <p>
+                    日本のモノづくり力で、エネルギーを産み出す事業<br>日本の技術力で、省エネ・節電・再エネを実現していきます<br>「今の生活をひと工夫し、省エネを実現していきませんか？」
+                </p>
+            </div>
+        </section>
+
+        <section class="block" id="contact">
+            <h2>お問い合わせ</h2>
+            <form action="contact.php" method="post">
+                <label for="name">お名前</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">メールアドレス</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">お問い合わせ内容</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">送信</button>
+            </form>
+        </section>
+
+    </main>
+    <footer>
+        <div style="margin-bottom: 0.8rem; font-size: 14px; color: #555;">
+            <p>フローライズ合同会社</p>
+            <p>〒633-0021 奈良県桜井倉橋２９２</p>
+            <p>Email: <a href="mailto:flowrise2025@gmail.com" style="color:#1C1883; text-decoration:none;">flowrise2025@gmail.com</a></p>
+        </div>
+        <p>© 2025 FLOW RISE</p>
+    </footer>
+</body>
+
+</html>
